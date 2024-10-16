@@ -1,0 +1,76 @@
+{
+    "userData": {
+        "variables": {
+            "tipocierreNew": "cierre abandono chat",
+            "redirigir": "true",
+            "id_sesion": "E58A6RNBQIWNF2RWQ5WM_2024-09-30T13:34:17.080Z",
+            "fecha_hora_inicio": "2024-09-30T13:34:17.080Z",
+            "tipoCierre": "cierre_abandono_chat",
+            "num_recordatorio": "2",
+            "ultimaAccion": "MELI(sinAccion)",
+            "fecha_hora_fin": "Mon Sep 30 2024 13:45:41 GMT+0000 (Coordinated Universal Time)",
+            "tiempo_atencion": "2024-09-30T13:34:17.080Z",
+            "ultimoFlujo": "MELI",
+            "enAtencion": "true",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzA1MDA0NDgxfQ.Oafh2Xya6lIV8hlw1haYqDj_jVHneMkDVezN5Y-EGd4"
+        },
+        "tags": [],
+        "PLATFORM_CONTACT_ID": "5491160941002",
+        "ipAddress": "",
+        "messengerReferral": null,
+        "_id_": "E58A6RNBQIWNF2RWQ5WM",
+        "locale": "es",
+        "CHAT_CHANNEL_ID": "gestion-whatsapp-5491128738960",
+        "CHAT_PLATFORM_ID": "whatsapp",
+        "LAST_MODIFICATION": "2024-09-30T13:45:40.603Z",
+        "constants": "{}",
+        "LAST_SEEN": "2024-09-30T13:45:40.607Z",
+        "CURRENT_OPERATOR_EMAIL": "",
+        "HAS_TALKED": "true",
+        "EMAIL": null,
+        "BOT_MUTED": "false",
+        "PICTURE_URL": null,
+        "LAST_NAME": "Diaz",
+        "FIRST_NAME": "Daniel",
+        "USER_ID_ON_BUSINESS": null,
+        "QUEUE": null,
+        "LAST_SESSION_CREATION_TIME": "2024-09-30T13:34:17.080Z"
+    },
+    "message": {
+        "BUSINESS_ID": "gestion",
+        "REACTIONS": [],
+        "CREATION_TIME": "2024-09-30T13:35:40.502Z",
+        "INTENT_ID": "RuleBuilder:gestion-abvoqAZIobp2s6aw4w0p@b.m-1719336662713",
+        "FROM_NAME": "Daniel Diaz",
+        "CUSTOMER_ID": "E58A6RNBQIWNF2RWQ5WM",
+        "_id_": "S8VOA0EF1LDUYS6LGUFB",
+        "FROM": "5491160941002",
+        "OBJECT_TYPE": "Message",
+        "DEBUG": {
+            "wamsgid": "wamid.HBgNNTQ5MTE2MDk0MTAwMhUCABIYFDNBQkVGOTQ1RjM5REZCMDA3MjNGAA==",
+            "changes": {},
+            "logs": [],
+            "events": [],
+            "lastBotLiteral": "1. SOLO Protección integral Mercado Pago: Centro de ayuda\n2. Quiero iniciar un trámite de OTROS seguros\n3. Quiero iniciar un trámite de Garantía Extendida\n4. Quiero contratar un seguro\n\nElegí solo el número de la opción que corresponda:"
+        },
+        "SESSION_CREATION_TIME": "2024-09-30T13:34:17.080Z",
+        "CHAT_CHANNEL_ID": "gestion-whatsapp-5491128738960",
+        "MESSAGE": "{\"button\":\"1\",\"r\":\"1\",\"intent\":\"RuleBuilder:gestion-abvoqAZIobp2s6aw4w0p@b.m-1719336662713\",\"entities\":\"{}\"}",
+        "CHAT_PLATFORM_ID": "whatsapp",
+        "RENDERING_INFO": {
+            "replyTo": {
+                "MESSAGE": "1. SOLO Protección integral Mercado Pago: Centro de ayuda\n2. Quiero iniciar un trámite de OTROS seguros\n3. Quiero iniciar un trámite de Garantía Extendida\n4. Quiero contratar un seguro\n\nElegí solo el número de la opción que corresponda: ",
+                "RENDERING_INFO": {
+                    "internalMap": {}
+                },
+                "FROM_NAME": "Bot",
+                "_id_": "MR5CHDAWU3M5EVBBEUM8",
+                "FROM": "me"
+            }
+        },
+        "LAST_MODIFICATION": "2024-09-30T13:35:40.502Z",
+        "INDEX": 0,
+        "TO": "me"
+    },
+    "params": {}
+}
