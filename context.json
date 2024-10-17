@@ -11,8 +11,9 @@
             "fecha_hora_fin": "Mon Sep 30 2024 13:45:41 GMT+0000 (Coordinated Universal Time)",
             "tiempo_atencion": "2024-09-30T13:34:17.080Z",
             "ultimoFlujo": "MELI",
-            "enAtencion": "true",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzA1MDA0NDgxfQ.Oafh2Xya6lIV8hlw1haYqDj_jVHneMkDVezN5Y-EGd4"
+            "enAtencion": null,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzA1MDA0NDgxfQ.Oafh2Xya6lIV8hlw1haYqDj_jVHneMkDVezN5Y-EGd4",
+            "mensajeAtencion": "Te informamos que nuestro horario de atención de lunes a viernes de 8 a 19 hs. Te pedimos que vuelvas a escribirnos dentro de ese horario así podemos ayudarte."
         },
         "tags": [],
         "PLATFORM_CONTACT_ID": "5491160941002",
