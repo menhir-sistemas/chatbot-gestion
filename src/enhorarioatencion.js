@@ -1,21 +1,5 @@
 let utils = require('utils');
 
-async function checkDate1(fecha) {
-
-
-  // Verificar si es fin de semana (Sábado o Domingo) o si está fuera del horario de 9 a 21 hs
-  var diaSemana = fecha.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
-  var horaLocal = new Date();
-  var horaArgentina = new Date(horaLocal.getTime() - (3 * 60 * 60 * 1000));
-  var horaActual = horaArgentina.getHours();
-  if ((diaSemana === 0 || diaSemana === 6) || horaActual < 8 || horaActual >= 19) {
-    // Mensaje si está fuera del horario de atención
-    //result.text("Te informamos que nuestro horario de atención es días hábiles de Lunes a Viernes de 9 a 21 hs. Te pedimos que vuelvas a escribirnos dentro de ese horario así podemos ayudarte.");
-    return false;
-  }
-
-}
-
 async function checkDate() {
   let ahora = moment();
   // Chequeo si es feriado
