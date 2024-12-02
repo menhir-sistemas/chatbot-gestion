@@ -1,5 +1,5 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:33443/neoapi';
+//const URI = 'https://service01.cat-technologies.com:33443/neoapi';
 const METHOD = 'POST';
 const IS_TEST = user.get('botmakerEnvironment') === 'DEVELOPMENT';
 

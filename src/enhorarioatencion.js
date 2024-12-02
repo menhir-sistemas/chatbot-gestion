@@ -3,10 +3,17 @@ let utils = require('utils');
 async function checkDate() {
   let ahora = moment();
   // Chequeo si es feriado
-  if (await utils.isFeriado(ahora)) {
-    // Mensaje si es feriado
-    user.set('mensajeAtencion', `¡Hoy es feriado en Argentina, esperamos que estés descansando!.
+  let feriado = await utils.isFeriado(ahora);
+  if (feriado) {
+    if (feriado.tipo == 'custom') {
+      user.set('mensajeAtencion', `¡Hoy es el Día del Seguro en la Argentina, estamos festejando!.
         Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podemos ayudarte. Gracias`);
+
+    } else {
+      // Mensaje si es feriado
+      user.set('mensajeAtencion', `¡Hoy es feriado en Argentina, esperamos que estés descansando!.
+        Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podemos ayudarte. Gracias`);
+    }
     return false;
   }
 

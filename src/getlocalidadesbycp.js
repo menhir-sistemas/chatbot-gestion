@@ -1,5 +1,7 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'http://localhost:5087';
+const URI="https://ewm-desa.lifeinsurtech.com.ar";
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
@@ -20,7 +22,7 @@ const OUTPUTS = {
 const callServiceApiRest = () => {
     return rp({
         method: METHOD,
-        uri: `${URI}/warranty/cardif/getLocalidadesByCP?cp=${context.userData.variables.cp}`,
+        uri: `${URI}/warranty/cardif/getLocalidadesByCP/1084`,//${context.userData.variables.cp}`,
         json: true,
         headers: {
             'Content-Type': 'application/json',

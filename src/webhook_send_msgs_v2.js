@@ -94,13 +94,23 @@ const createBody = async () => {
 const main = async () => {
   //result.text(context.userData._id_ + "_" + context.message.SESSION_CREATION_TIME)
   const mensajes = await createBody();
+  let number = context.userData.CHAT_CHANNEL_ID;
+  try {
+    // TODO: solo para WA
+    let parts = number.split('-');
+    number = parts[2];
+  } catch (error) {
+    number = "5491128738960";
+  }   
+
+  bmconsole.log(number);
   let payload = {
     lastName: context.userData.LAST_NAME,
     chatPlatform: context.userData.CHAT_PLATFORM_ID,
     customerCreationTime: context.message.CREATION_TIME,
     contactId: context.userData.PLATFORM_CONTACT_ID,
     type: "message",
-    whatsappNumber: "5491128738960",
+    whatsappNumber: number,
     firstName: context.userData.FIRST_NAME,
     sessionCreationTime: context.message.SESSION_CREATION_TIME,
     v: "1.1",
