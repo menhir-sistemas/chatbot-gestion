@@ -80,12 +80,12 @@ const createBody = async () => {
     lista.push(json);
   }
   //agregamos como ultimo mensaje el id de la sesion
-  lista.push({ ...lista[lista.length-1] }); // copiamos el ultimo elemento
-  lista[lista.length-1].message = ("id_session_para_BI: "+context.userData._id_ + "_" + context.message.SESSION_CREATION_TIME);// le ponemos de texto el id de la sesion
-  lista[lista.length-1].fromCustomer = true;
-  lista[lista.length-1].from = 'user';
-  lista[lista.length-1].date = new Date();
-  lista[lista.length-1]._id_ = lista[lista.length-1]._id_+1;
+  lista.unshift({ ...lista[lista.length-1] }); // copiamos el ultimo elemento
+  lista[0].message = ("id_session_para_BI: "+context.userData._id_ + "_" + context.message.SESSION_CREATION_TIME);// le ponemos de texto el id de la sesion
+  lista[0].fromCustomer = true;
+  lista[0].from = 'user';
+  lista[0].date = new Date();
+  lista[0]._id_ = lista[lista.length-1]._id_+1;
   //result.text(JSON.stringify( lista[lista.length-1]))
   return lista;
 };
