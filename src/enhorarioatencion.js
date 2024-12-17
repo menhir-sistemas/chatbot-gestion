@@ -6,7 +6,7 @@ async function checkDate() {
   let feriado = await utils.isFeriado(ahora);
   if (feriado) {
     if (feriado.tipo == 'custom') {
-      user.set('mensajeAtencion', `¡Hoy es el Día del Seguro en la Argentina, estamos festejando!.
+      user.set('mensajeAtencion', `¡Hoy es ${feriado.nombre} en la Argentina, estamos festejando!.
         Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podemos ayudarte. Gracias`);
 
     } else {
