@@ -4,8 +4,8 @@
 feriadosAdicionales: () =>{
   return [
     {fecha: '2024-10-21', tipo: 'custom', nombre: 'Día del seguro 2024'},
-    {fecha: '2024-12-24', tipo: 'inamovible', nombre: 'víspera de Navidad'},
-    {fecha: '2024-12-31', tipo: 'inamovible', nombre: 'víspera de año nuevo'},
+    {fecha: '2024-12-24', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
+    {fecha: '2024-12-31', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
   ];
 },
 /**

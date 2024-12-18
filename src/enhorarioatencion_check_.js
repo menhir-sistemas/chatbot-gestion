@@ -6,13 +6,13 @@ async function checkDate() {
   let feriado = await utils.isFeriado(ahora);
   if (feriado) {
     if (feriado.tipo == 'custom') {
-      user.set('mensajeAtencion', `¡Hoy es ${feriado.nombre} en la Argentina, estamos festejando!.
-        Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podemos ayudarte. Gracias`);
+      user.set('mensajeAtencion', `Te informamos que, con motivo de ${feriado.nombre}, no estaremos atendiendo.
+        Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podremos ayudarte. Gracias`);
 
     } else {
       // Mensaje si es feriado
       user.set('mensajeAtencion', `¡Hoy es feriado en Argentina, esperamos que estés descansando!.
-        Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podemos ayudarte. Gracias`);
+        Te pedimos que vuelvas a escribirnos el próximo día hábil de lunes a viernes de 8 a 19 hs. así podremos ayudarte. Gracias`);
     }
     return false;
   }
