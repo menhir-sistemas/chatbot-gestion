@@ -34,4 +34,24 @@ isFeriado: async (cuando) => {
   const found = feriados.find( (f) =>     f.fecha == cuando.format('YYYY-MM-DD')  );
 
   return found;
+},
+isProduction: () => {
+  try {
+    const PRODUCTION_NUMBER = "54911287389601"; 
+    let number = context.userData.CHAT_CHANNEL_ID;
+    return number.includes(PRODUCTION_NUMBER);
+      // TODO: solo para WA
+  } catch (error) {
+    bmconsole.error(error);
+    return false;
+  } 
+},
+warrantyURL: () => {
+  if ( utils.isProduction() ) {
+    bmconsole.log("warrantyURL => produccion");
+    return 'https://service01.cat-technologies.com:4484/api';
+  } else {
+    bmconsole.log("warrantyURL => test");
+    return 'http://190.104.197.146:5000';
+  }
 }

@@ -1,5 +1,7 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+let utils = require('utils');
+
+const URI = utils.warrantyURL();
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
@@ -14,12 +16,13 @@ const OUTPUTS = {
 };
 
 const callServiceApiRest = () => {
+  let uri = `${URI}/warranty/cardif/getGarantias?nro_documento=${context.userData.variables.documento}&tipo_documento=0`;
     return rp({
         method: METHOD,
-        uri: `${URI}/warranty/cardif/getGarantias?nro_documento=${context.userData.variables.documento}&tipo_documento=0`,
+        uri: uri,
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            'Accept': 'text/plain',
             "auth-token": AUTHENTICATION,
         },
     });
