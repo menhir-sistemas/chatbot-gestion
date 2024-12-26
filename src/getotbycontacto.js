@@ -1,5 +1,10 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'https://service01.cat-technologies.com:4484/api';
+
+let utils = require('utils');
+
+const URI = utils.warrantyURL();
+
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
@@ -60,9 +65,9 @@ main()
         // Code on error
         const errorMessage = `[Integration with api rest] :  ${err.message}`;
         bmconsole.log(errorMessage);
-        bmconsole.log(response);
+        //bmconsole.log(response);
   		user.set('CA_name','getOTbyContacto')
-  		user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
+  		//user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
         result.gotoRule('Hablar con Agente');
     })
     .finally(result.done);
