@@ -37,7 +37,7 @@ isFeriado: async (cuando) => {
 },
 isProduction: () => {
   try {
-    const PRODUCTION_NUMBER = "54911287389601"; 
+    const PRODUCTION_NUMBER = "5491128738960"; 
     let number = context.userData.CHAT_CHANNEL_ID;
     return number.includes(PRODUCTION_NUMBER);
       // TODO: solo para WA
@@ -54,4 +54,14 @@ warrantyURL: () => {
     bmconsole.log("warrantyURL => test");
     return 'http://190.104.197.146:5000';
   }
+},
+crmURL: () => {
+  if ( utils.isProduction() ) {
+    bmconsole.log("CRM => produccion");
+    return 'https://service01.cat-technologies.com:4484/api';
+  } else {
+    bmconsole.log("CRM => test");
+    return 'http://190.104.197.146:5000';
+  }
 }
+
