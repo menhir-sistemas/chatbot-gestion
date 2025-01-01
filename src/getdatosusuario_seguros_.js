@@ -1,5 +1,9 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'https://service01.cat-technologies.com:4484/api';
+
+let utils = require('utils');
+
+const URI = utils.crmURL();
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
@@ -14,9 +18,10 @@ const OUTPUTS = {
 };
 
 const callServiceApiRest = () => {
+    const uri = `${URI}/crm/cardif/getContacto?nro_documento=${context.userData.variables.documento}`;
     return rp({
         method: METHOD,
-        uri: `${URI}/crm/cardif/getContacto?nro_documento=${context.userData.variables.documento}`,
+        uri: uri,
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -25,12 +30,12 @@ const callServiceApiRest = () => {
     });
 }
 
-const main = async() => {
+const main = async () => {
     let response = await callServiceApiRest();
     response = JSON.parse(response);
-  if (response["value"] && response["value"].length > 0){
-      user.set('id_contacto',response["value"][0]['contactid']);
-  }
+    if (response["value"] && response["value"].length > 0) {
+        user.set('id_contacto', response["value"][0]['contactid']);
+    }
 };
 
 main()
@@ -39,8 +44,8 @@ main()
         const errorMessage = `[Integration with api rest] :   ${err.message}`;
         bmconsole.log(errorMessage);
         bmconsole.log(context.userData.variables.documento);
-        user.set('CA_name','getDatosUsuario(Seguros)')
-  		user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
+        user.set('CA_name', 'getDatosUsuario(Seguros)')
+        //user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
         result.gotoRule('Hablar con Agente');
     })
     .finally(result.done);
