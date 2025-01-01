@@ -18,7 +18,7 @@
             "q_garantias": "2",
             "garantias": "[{\"descripcionProducto\":\"SSG G.J2 PRIME SM-G532M 1\",\"numeroBoleta\":\"879028040500879\",\"fechaVigenciaDesde\":\"2018-11-12T00:00:00\",\"fechaVigenciaHasta\":\"2019-11-11T00:00:00\",\"fechaDeCompra\":\"2017-11-11T00:00:00\",\"nombreSocio\":\"Musimundo - CARSA\",\"poliza\":\"6500301\",\"codigoPostal\":\"1900\",\"localidad\":{\"codigoLocalidad\":\"0\",\"nombreLocalidad\":\"LA PLATA\"},\"provincia\":{\"codigoProvincia\":\"BA\",\"nombreProvincia\":\"Buenos Aires\"},\"direccion\":\"CALLE 3 363\",\"altura\":\"\",\"piso\":\"\",\"depto\":\"\",\"emailContacto\":\"\",\"telefonoContacto\":\"\",\"sublineaProducto\":\"LTCE\",\"marcaProducto\":\"203\",\"estadoOt\":\"4\",\"descripcionEstadoOt\":\"Trámite finalizado\",\"accionarGarantia\":\"false\",\"codigoExtragarantia\":\"879028040500879\"},{\"descripcionProducto\":\"VENT PIE/TUR 14\\\" 70W STG4\",\"numeroBoleta\":\"767021761100767\",\"fechaVigenciaDesde\":\"2024-12-06T00:00:00\",\"fechaVigenciaHasta\":\"2025-12-05T00:00:00\",\"fechaDeCompra\":\"2023-12-05T00:00:00\",\"nombreSocio\":\"Musimundo - CARSA\",\"poliza\":\"6500301\",\"codigoPostal\":\"1900\",\"localidad\":{\"codigoLocalidad\":\"0\",\"nombreLocalidad\":\"LA PLATA\"},\"provincia\":{\"codigoProvincia\":\"BA\",\"nombreProvincia\":\"Buenos Aires\"},\"direccion\":\"CALLE 3 363\",\"altura\":\"\",\"piso\":\"\",\"depto\":\"\",\"emailContacto\":\"\",\"telefonoContacto\":\"\",\"sublineaProducto\":\"PEVENT\",\"marcaProducto\":\"375\",\"estadoOt\":\"2\",\"descripcionEstadoOt\":\"Trámite en proceso\",\"accionarGarantia\":\"false\",\"codigoExtragarantia\":\"767021761100767\"}]",
             "cp": "1425",
-            "CA_name": "getDatosUsuario(Seguros)",
+            "CA_name": "getCertificados(Seguros)",
             "codigoLocalidad": "665",
             "codigoProvincia": "7",
             "q_ot": null,
@@ -26,7 +26,9 @@
             "es_contacto": true,
             "nombre": "MIRTA",
             "apellido": "RUIZ",
-            "id_contacto": "fc22bc67-2c4b-4090-9800-b3c1981e170f"
+            "id_contacto": "fc22bc67-2c4b-4090-9800-b3c1981e170f",
+            "q_certificados": "1",
+            "certificados": "[{\"@odata.etag\":\"W/\\\"8126213576\\\"\",\"bfs_estado\":\"Vigente\",\"bfs_certificado\":\"ACR2008876\",\"bfs_certificadoid\":\"c9e703f4-d2cc-4e72-a874-6ba6c7fc7123\",\"bnp_id_conj_prod\":1500,\"bnp_desc_conj_prod\":\"Asistencia a los bienes\",\"bnp_id_prod_mkt\":1545,\"bnp_desc_prod_mkt\":\"Asistencia Hogar\"}]"
         },
         "tags": [],
         "PLATFORM_CONTACT_ID": "5491160941002",

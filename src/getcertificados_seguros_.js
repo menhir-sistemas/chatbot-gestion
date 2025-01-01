@@ -1,5 +1,10 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'https://service01.cat-technologies.com:4484/api';
+
+let utils = require('utils');
+
+const URI = utils.crmURL();
+
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
