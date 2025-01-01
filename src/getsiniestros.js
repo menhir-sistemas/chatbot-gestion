@@ -1,5 +1,9 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'https://service01.cat-technologies.com:4484/api';
+
+let utils = require('utils');
+
+const URI = utils.crmURL();
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
@@ -13,20 +17,20 @@ const BM_RESULT_VAR_NAME = 'siniestros'
 const IS_TEST = user.get('botmakerEnvironment') === 'DEVELOPMENT';
 
 const OUTPUTS = {
-    log: (text) => { IS_TEST ? result.text(text) : bmconsole.log(text); },
+  log: (text) => { IS_TEST ? result.text(text) : bmconsole.log(text); },
 };
 
 const callServiceApiRest = () => {
-    return rp({
-        method: METHOD,
-        uri: `${URI}/crm/cardif/getDatosSiniestro?segment_id=${context.userData.variables.id_contacto}`,
-        json: true,
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            "auth-token": AUTHENTICATION,
-        },
-    });
+  return rp({
+    method: METHOD,
+    uri: `${URI}/crm/cardif/getDatosSiniestro?segment_id=${context.userData.variables.id_contacto}`,
+    json: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      "auth-token": AUTHENTICATION,
+    },
+  });
 }
 
 function filtrarPorRango(siniestros) {
@@ -49,44 +53,44 @@ function filtrarPorRango(siniestros) {
   return siniestrosfiltrados;
 }
 
-const main = async() => {
-    const response = await callServiceApiRest();
-    let _siniestros = filtrarPorRango(response["value"]);
-  	user.set('q_siniestros', _siniestros.length);
-  
-    if (_siniestros.length > 0){
-      result.text('Listado de siniestros en curso.')
-      let buttons = result.buttonsBuilder().text('Seleccioná el número de siniestro por el que quieras consultar:');
-      let siniestros = [];
-      for(let i = 0;i < _siniestros.length; i++){
+const main = async () => {
+  const response = await callServiceApiRest();
+  let _siniestros = filtrarPorRango(response["value"]);
+  user.set('q_siniestros', _siniestros.length);
 
-        buttons.addClientActionButton(_siniestros[i].bfs_idsiniestro, 'mostrarEstadoSiniestro', {
-                'valueSelected': _siniestros[i].bfs_idsiniestro,
-            });
-      }
-      buttons.addClientActionButton('Ninguno de los anteriores', 'mostrarEstadoSiniestro', {
-                'valueSelected': 'ninguno',
-            });
-      buttons.quickReplies();
-      buttons.send();
-      user.set('siniestros', JSON.stringify(_siniestros));
-    }else{
-      result.text('No se encontró ningun siniestro en curso asociado al documento.')
-      //result.text('Si no ves el siniestro por el que querés consultar, podés comunicarte directamente con uno de nuestros agentes.')
-      result.gotoRule('Hablar con Agente')
+  if (_siniestros.length > 0) {
+    result.text('Listado de siniestros en curso.')
+    let buttons = result.buttonsBuilder().text('Seleccioná el número de siniestro por el que quieras consultar:');
+    let siniestros = [];
+    for (let i = 0; i < _siniestros.length; i++) {
+
+      buttons.addClientActionButton(_siniestros[i].bfs_idsiniestro, 'mostrarEstadoSiniestro', {
+        'valueSelected': _siniestros[i].bfs_idsiniestro,
+      });
     }
+    buttons.addClientActionButton('Ninguno de los anteriores', 'mostrarEstadoSiniestro', {
+      'valueSelected': 'ninguno',
+    });
+    buttons.quickReplies();
+    buttons.send();
+    user.set('siniestros', JSON.stringify(_siniestros));
+  } else {
+    result.text('No se encontró ningun siniestro en curso asociado al documento.')
+    //result.text('Si no ves el siniestro por el que querés consultar, podés comunicarte directamente con uno de nuestros agentes.')
+    result.gotoRule('Hablar con Agente')
+  }
 };
 
 main()
-    .catch((err) => {
-        // Code on error
-        const errorMessage = `[Integration with api rest] :  ${err.message}`;
-        bmconsole.log(errorMessage);
-        bmconsole.log(context.userData.variables.id_contacto);
-  		user.set('CA_name','getSiniestros')
-  		user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
-        result.gotoRule('Hablar con Agente');
-    })
-    .finally(result.done);
+  .catch((err) => {
+    // Code on error
+    const errorMessage = `[Integration with api rest] :  ${err.message}`;
+    bmconsole.log(errorMessage);
+    bmconsole.log(context.userData.variables.id_contacto);
+    user.set('CA_name', 'getSiniestros')
+    //user.set('descripcion', `error: ${err.message}\n ${JSON.stringify(response)}`)
+    result.gotoRule('Hablar con Agente');
+  })
+  .finally(result.done);
 
 
