@@ -55,7 +55,7 @@ warrantyURL: () => {
     return 'http://190.104.197.146:5000';
   }
 },
-crmURL: () => {
+crmURL: () => { 
   if ( utils.isProduction() ) {
     bmconsole.log("CRM => produccion");
     return 'https://service01.cat-technologies.com:4484/api';
@@ -63,5 +63,8 @@ crmURL: () => {
     bmconsole.log("CRM => test");
     return 'http://190.104.197.146:5000';
   }
+},
+checkOutOfService: () => {
+  throw new Error("Fuera de servicio");  
 }
 
