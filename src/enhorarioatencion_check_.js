@@ -18,7 +18,7 @@ async function checkDate() {
   }
 
   // Chequeo el horario y el día de la semana
-  if (ahora.day() == 0 || ahora.day() == 6 || ahora.hour() < 8 || ahora.hour() > 19) {
+  if (ahora.day() == 0 || ahora.day() == 6 || ahora.hour() < 8 || ahora.hour() >= 19) {
     user.set('mensajeAtencion', "Te informamos que nuestro horario de atención de lunes a viernes de 8 a 19 hs. Te pedimos que vuelvas a escribirnos dentro de ese horario así podemos ayudarte.");
     return false;
   }
