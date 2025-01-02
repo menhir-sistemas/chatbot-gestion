@@ -1,5 +1,10 @@
 //@constant('Use external service URI')
-const URI = 'https://service01.cat-technologies.com:4484/api';
+//const URI = 'https://service01.cat-technologies.com:4484/api';
+
+let utils = require('utils');
+
+const URI = utils.warrantyURL();
+
 
 //@constant('Use http method (POST, GET, PUT...)')
 const METHOD = 'GET';
@@ -18,9 +23,23 @@ const OUTPUTS = {
 };
 
 const callServiceApiRest = () => {
+    /*
+    const cp = user.get("cp") ?? "";
+    const codigoProvincia = user.get("codigoProvincia") ?? "";
+    const codigoLocalidad = user.get("codigoLocalidad") ?? "";
+    const marcaProducto = user.get("marcaProducto") ?? "";
+    const sublineaProducto = user.get("sublineaProducto") ?? "";
+    */
+    const cp = "1744";
+    const codigoProvincia = "3";
+    const codigoLocalidad = "485";
+    const marcaProducto = "91";
+    const sublineaProducto = "34"
+    const uri = `${URI}/warranty/cardif/getServicioTecnico?cp=${cp}&codigo_provincia=${codigoProvincia}&codigo_localidad=${codigoLocalidad}&marca_producto=${marcaProducto}&sublinea_producto=${sublineaProducto}`;
+    //const uri=`${URI}/warranty/cardif/getServicioTecnico?cp=${cp}&codigo_localidad=${codigoLocalidad}&sublinea_producto=${sublineaProducto}`;
     return rp({
         method: METHOD,
-        uri: `${URI}/warranty/cardif/getServicioTecnico?cp=${context.userData.variables.cp}&codigo_localidad=${context.userData.variables.codigoLocalidad}&sublinea_producto=${context.userData.variables.sublineaProducto}`,
+        uri: uri,
         json: true,
         headers: {
             'Content-Type': 'application/json',
@@ -30,22 +49,22 @@ const callServiceApiRest = () => {
     });
 }
 
-const main = async() => {
+const main = async () => {
     const response = await callServiceApiRest();
     if (response.data && Array.isArray(response.data.ServicioTecnico)) {
-      	let buttons = result.buttonsBuilder().text('Selecciona un servicio técnico:');
+        let buttons = result.buttonsBuilder().text('Selecciona un servicio técnico:');
 
-      for(let i = 0;i < response.data.ServicioTecnico.length; i++){
-        	buttons.addClientActionButton((i+1)+". "+response.data.ServicioTecnico[i].nombreDeServicioTecnico, 'mostrarDatosSsTecnico', {
+        for (let i = 0; i < response.data.ServicioTecnico.length; i++) {
+            buttons.addClientActionButton((i + 1) + ". " + response.data.ServicioTecnico[i].nombreDeServicioTecnico, 'mostrarDatosSsTecnico', {
                 'valueSelected': i,
             });
-      	}
-      buttons.quickReplies();
-      buttons.send();
-      user.set('servicios', JSON.stringify(response.data.ServicioTecnico));
+        }
+        buttons.quickReplies();
+        buttons.send();
+        user.set('servicios', JSON.stringify(response.data.ServicioTecnico));
     }
     else {
-      if (response.data && typeof response.data === 'object'){
+        if (response.data && typeof response.data === 'object') {
             let ss_tecnico = `Los datos asociados al servicio técnico son los siguientes:
             Nombre: ${response.data.ServicioTecnico.nombreDeServicioTecnico}
             Dirección:${response.data.ServicioTecnico.direccion}
@@ -53,13 +72,13 @@ const main = async() => {
             Email: ${response.data.ServicioTecnico.email}
             Teléfono: ${response.data.ServicioTecnico.telefono}
             Te recordamos que tenés 5 días hábiles para comunicarte y llevar tu producto al Servicio Técnico, de lo contrario esta Orden de Trabajo (OT) se dará de baja y tendrás que generar una nueva.`
-        	user.set('codigo_sstecnico', response.data.ServicioTecnico.codigoServicio);
+            user.set('codigo_sstecnico', response.data.ServicioTecnico.codigoServicio);
             user.set('datos_sstecnico', ss_tecnico);
-        	result.gotoRule('st asignado');
-      }
-      else{
-        result.gotoRule('pendiente asignacion');
-      }
+            result.gotoRule('st asignado');
+        }
+        else {
+            result.gotoRule('pendiente asignacion');
+        }
     }
 };
 
@@ -69,9 +88,8 @@ main()
         const errorMessage = `[Integration with api rest] :  ${err.message}`;
         bmconsole.log(errorMessage);
         bmconsole.log(context.userData.variables.sublineaProducto);
-        bmconsole.log(response);
-  		user.set('CA_name','getServicioTecnico')
-  		user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
+        user.set('CA_name', 'getServicioTecnico')
+        //user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
         result.gotoRule('Hablar con Agente');
     })
     .finally(result.done);
