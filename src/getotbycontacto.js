@@ -1,6 +1,4 @@
 //@constant('Use external service URI')
-//const URI = 'https://service01.cat-technologies.com:4484/api';
-
 let utils = require('utils');
 
 const URI = utils.warrantyURL();
@@ -34,29 +32,31 @@ const callServiceApiRest = () => {
     });
 }
 
-const main = async() => {
+const main = async () => {
+    utils.checkOutOfService();
+
     const response = await callServiceApiRest();
     user.set('q_ot', response["otCliente"].length);
-    
-    if (response["otCliente"].length > 0){
-      result.text('Este es el listado de las órdenes de trabajo asociadas con tu documento:')
-      let buttons = result.buttonsBuilder().text('Ingresá el número de la OT por la cual querés consultar el estado:');
-      let ots = [];
-      for(let i = 0;i < response["otCliente"].length; i++){
-        buttons.addClientActionButton(response["otCliente"][i], 'mostrarEstadoOT', {
+
+    if (response["otCliente"].length > 0) {
+        result.text('Este es el listado de las órdenes de trabajo asociadas con tu documento:')
+        let buttons = result.buttonsBuilder().text('Ingresá el número de la OT por la cual querés consultar el estado:');
+        let ots = [];
+        for (let i = 0; i < response["otCliente"].length; i++) {
+            buttons.addClientActionButton(response["otCliente"][i], 'mostrarEstadoOT', {
                 'valueSelected': i,
             });
-      }
-      buttons.addClientActionButton('Ninguno de los anteriores', 'mostrarEstadoOT', {
-                'valueSelected': 'ninguno',
-            });
-      buttons.quickReplies();
-      buttons.send();
-      user.set('ots', JSON.stringify(response.data));
-    }else{
-      user.set('CA_name','getOTbyContacto')
-      user.set('descripcion',`error: ${response.errores? response.errores.MensajeError.mensajeError : JSON.stringify(response)}\n`)
-      result.gotoRule('Hablar con Agente')
+        }
+        buttons.addClientActionButton('Ninguno de los anteriores', 'mostrarEstadoOT', {
+            'valueSelected': 'ninguno',
+        });
+        buttons.quickReplies();
+        buttons.send();
+        user.set('ots', JSON.stringify(response.data));
+    } else {
+        user.set('CA_name', 'getOTbyContacto')
+        user.set('descripcion', `error: ${response.errores ? response.errores.MensajeError.mensajeError : JSON.stringify(response)}\n`)
+        result.gotoRule('Hablar con Agente')
     }
 };
 
@@ -66,8 +66,8 @@ main()
         const errorMessage = `[Integration with api rest] :  ${err.message}`;
         bmconsole.log(errorMessage);
         //bmconsole.log(response);
-  		user.set('CA_name','getOTbyContacto')
-  		//user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
+        user.set('CA_name', 'getOTbyContacto')
+        //user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
         result.gotoRule('Hablar con Agente');
     })
     .finally(result.done);

@@ -29,6 +29,8 @@ const callServiceApiRest = () => {
 }
 
 const main = async () => {
+  utils.checkOutOfService();
+
   let response = await callServiceApiRest();
   bmconsole.log(response);
   //seteamos la cantidad de garantias obtenidas

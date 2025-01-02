@@ -35,6 +35,8 @@ const callServiceApiRest = () => {
 }
 
 const main = async () => {
+  utils.checkOutOfService();
+
   const response = await callServiceApiRest();
   if (response.data) {
     if (!Array.isArray(response.data)) {
@@ -46,7 +48,7 @@ const main = async () => {
       if (response.data.length == 1) {
         result.text(`La localidad que coincide con el CP ingresado es *${response.data[0].Localidad.nombreLocalidad.toLowerCase()}*`);
         user.set('codigoLocalidad', response.data[0].Localidad.codigoLocalidad);
-        user.set('codigoProvincia', response.data[0].Provincia.codigoProvincia); 
+        user.set('codigoProvincia', response.data[0].Provincia.codigoProvincia);
       } else {
         result.text(`Se encontró más de una localidad asociada con el CP ingresado`);
         let buttons = result.buttonsBuilder().text('Ingresá la opción correspondiente:');

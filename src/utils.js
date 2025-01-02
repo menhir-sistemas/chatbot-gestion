@@ -65,6 +65,6 @@ crmURL: () => {
   }
 },
 checkOutOfService: () => {
-  throw new Error("Fuera de servicio");  
+  //throw new Error("Fuera de servicio");  
 }
 

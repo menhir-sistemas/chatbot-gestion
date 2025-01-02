@@ -1,5 +1,4 @@
 //@constant('Use external service URI')
-//const URI = 'https://service01.cat-technologies.com:4484/api';
 
 let utils = require('utils');
 
@@ -34,28 +33,29 @@ const callServiceApiRest = () => {
     });
 }
 
-const main = async() => {
+const main = async () => {
+    utils.checkOutOfService();
     bmconsole.log(user.get('documento'))
     const response = await callServiceApiRest();
 
-  if (typeof response.data === 'string'){
-      	context.userData.variables.es_contacto = false;
-      	
-    }else{
+    if (typeof response.data === 'string') {
+        context.userData.variables.es_contacto = false;
+
+    } else {
         context.userData.variables.es_contacto = true;
-        let nombre_ok = '',apellido_ok = '';
+        let nombre_ok = '', apellido_ok = '';
         //buscamos el nombre, tiene que ser distinto de "" y el string "no informado"
-        for(let c=0;c<response.data.length;c++){
-          let certificado = response.data[c];
-          if (nombre_ok === '' && (certificado.nombre_cliente && certificado.nombre_cliente != "" && certificado.nombre_cliente.toLowerCase().trim() !== 'no informado' && certificado.nombre_cliente.toLowerCase().trim() !== 'sin nombre')){
-          	nombre_ok = certificado.nombre_cliente;
-          }
-          if (apellido_ok === '' && (certificado.apellido_cliente && certificado.apellido_cliente != "" && certificado.apellido_cliente.toLowerCase().trim() !== 'no informado' && certificado.apellido_cliente.toLowerCase().trim() !== 'sin apellido')){
-          	apellido_ok = certificado.apellido_cliente;
-          }
+        for (let c = 0; c < response.data.length; c++) {
+            let certificado = response.data[c];
+            if (nombre_ok === '' && (certificado.nombre_cliente && certificado.nombre_cliente != "" && certificado.nombre_cliente.toLowerCase().trim() !== 'no informado' && certificado.nombre_cliente.toLowerCase().trim() !== 'sin nombre')) {
+                nombre_ok = certificado.nombre_cliente;
+            }
+            if (apellido_ok === '' && (certificado.apellido_cliente && certificado.apellido_cliente != "" && certificado.apellido_cliente.toLowerCase().trim() !== 'no informado' && certificado.apellido_cliente.toLowerCase().trim() !== 'sin apellido')) {
+                apellido_ok = certificado.apellido_cliente;
+            }
         }
-        user.set('nombre',nombre_ok)
-        user.set('apellido',apellido_ok)
+        user.set('nombre', nombre_ok)
+        user.set('apellido', apellido_ok)
         bmconsole.log(user.get('nombre'))
         bmconsole.log(user.get('apellido'))
     }
@@ -67,9 +67,9 @@ main()
         const errorMessage = `[Integration with api rest] :   ${err.message}`;
         bmconsole.log(errorMessage);
         bmconsole.log(context.userData.variables.documento);
-  		user.set('CA_name','identificarUsuario')
-  		//user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
+        user.set('CA_name', 'identificarUsuario')
+        //user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
         result.gotoRule('asignar a agente');
-        
+
     })
     .finally(result.done);

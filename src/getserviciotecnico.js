@@ -1,5 +1,4 @@
 //@constant('Use external service URI')
-//const URI = 'https://service01.cat-technologies.com:4484/api';
 
 let utils = require('utils');
 
@@ -50,6 +49,8 @@ const callServiceApiRest = () => {
 }
 
 const main = async () => {
+    utils.checkOutOfService();
+
     const response = await callServiceApiRest();
     if (response.data && Array.isArray(response.data.ServicioTecnico)) {
         let buttons = result.buttonsBuilder().text('Selecciona un servicio técnico:');
