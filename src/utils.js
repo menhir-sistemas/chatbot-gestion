@@ -37,7 +37,7 @@ isFeriado: async (cuando) => {
 },
 isProduction: () => {
   try {
-    const PRODUCTION_NUMBER = "54911287389601"; 
+    const PRODUCTION_NUMBER = "5491128738960"; 
     let number = context.userData.CHAT_CHANNEL_ID;
     return number.includes(PRODUCTION_NUMBER);
       // TODO: solo para WA
@@ -65,6 +65,10 @@ crmURL: () => {
   }
 },
 checkOutOfService: () => {
-  throw new Error("Fuera de servicio");  
+  if ( utils.isProduction() ) {
+    throw new Error("Fuera de servicio");  
+  } else {
+    ;
+  }
 }
 

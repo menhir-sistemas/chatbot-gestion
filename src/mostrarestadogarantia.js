@@ -7,7 +7,9 @@ const main = async () => {
   }
   else {
     let garantia = garantias[parseInt(context.params.valueSelected)];
-    if (garantia.accionarGarantia === 'true') {
+    /*result.text(context.params.valueSelected);
+    result.text(garantia.accionarGarantia);*/
+    if (garantia.accionarGarantia == true) {
       //result.text("Garantia validada. Continuando con la operación.");
       user.set('poliza', garantia.poliza);
       try {

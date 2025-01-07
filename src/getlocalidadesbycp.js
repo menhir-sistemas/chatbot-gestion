@@ -58,13 +58,13 @@ const main = async () => {
             'valueSelected': i,
           });
         }
+        buttons.addClientActionButton((response.data.length) + "." + ' Ninguna de las anteriores', 'elegirLocalidad', {
+          'valueSelected': 'ninguno',
+        });
+        buttons.quickReplies();
+        buttons.send();
+        user.set(BM_RESULT_VAR_NAME, JSON.stringify(response.data))
       }
-      buttons.addClientActionButton((response.data.length) + "." + ' Ninguna de las anteriores', 'elegirLocalidad', {
-        'valueSelected': 'ninguno',
-      });
-      buttons.quickReplies();
-      buttons.send();
-      user.set(BM_RESULT_VAR_NAME, JSON.stringify(response.data))
     }
   }
   else {
