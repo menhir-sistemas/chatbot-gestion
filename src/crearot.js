@@ -47,6 +47,7 @@ const main = async () => {
     tipo_documento: 0,
     nro_documento: user.get('documento'),
   }
+
   bmconsole.log(data);
   const response = await callServiceApiRest(data);
   bmconsole.log(response);

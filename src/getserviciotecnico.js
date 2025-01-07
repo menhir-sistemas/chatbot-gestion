@@ -27,16 +27,7 @@ const callServiceApiRest = () => {
     const codigoLocalidad = user.get("codigoLocalidad") ?? "";
     const marcaProducto = user.get("marcaProducto") ?? "";
     const sublineaProducto = user.get("sublineaProducto") ?? "";
-    /*
-    const cp = "1744";
-    const codigoProvincia = "3";
-    const codigoLocalidad = "485";
-    const marcaProducto = "91";
-    const sublineaProducto = "34"
-    */
     const uri = `${URI}/warranty/cardif/getServicioTecnico?cp=${cp}&codigo_provincia=${codigoProvincia}&codigo_localidad=${codigoLocalidad}&marca_producto=${marcaProducto}&sublinea_producto=${sublineaProducto}`;
-    result.text(uri);
-    //const uri=`${URI}/warranty/cardif/getServicioTecnico?cp=${cp}&codigo_localidad=${codigoLocalidad}&sublinea_producto=${sublineaProducto}`;
     return rp({
         method: METHOD,
         uri: uri,
