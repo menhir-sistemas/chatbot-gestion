@@ -44,7 +44,6 @@ const main = async () => {
     utils.checkOutOfService();
 
     const response = await callServiceApiRest();
-    result.text('mas')
     if (response.data && Array.isArray(response.data.ServicioTecnico)) {
         let buttons = result.buttonsBuilder().text('Selecciona un servicio técnico:');
 

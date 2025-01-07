@@ -52,14 +52,16 @@ const main = async () => {
   const response = await callServiceApiRest(data);
   bmconsole.log(response);
   if (response.data && response.data != '') {
-    user.set('numeroOT', response.data)
+    user.set('numeroOT', response.numeroOT)
   }
   else {
     user.set('CA_name', 'crearOT')
-    user.set('descripcion', `error: ${response.errores ? response.errores.MensajeError.mensajeError : JSON.stringify(response)}\n`)
-    if (!response.errores) {
-      result.gotoRule('Hablar con Agente');
+    try {
+      user.set('descripcion', `error: ${response.errors[0]}`);
+    } catch (error2) {
+      user.set('descripcion', `error: ${JSON.stringify(response)}`);     
     }
+    result.gotoRule('Hablar con Agente');
   }
 };
 
