@@ -8,7 +8,10 @@ const main = async () => {
     }
     else{
         let ot = ots[parseInt(context.params.valueSelected)];
-        user.set('msgCliente',ot.msgCliente);
+        let msg = ot.estado;
+        if ( ot.msgCliente != null && ot.msgCliente != '')
+            msg = ot.msgCliente;
+        user.set('msgCliente',msg);
         user.set('numeroOrdenDeTrabajo',ot.numeroOrdenDeTrabajo);
         result.gotoRule('datos OT');
     }

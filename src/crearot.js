@@ -51,13 +51,13 @@ const main = async () => {
   bmconsole.log(data);
   const response = await callServiceApiRest(data);
   bmconsole.log(response);
-  if (response.data && response.data != '') {
+  if (response.numeroOT && response.numeroOT != '') {
     user.set('numeroOT', response.numeroOT)
   }
   else {
     user.set('CA_name', 'crearOT')
     try {
-      user.set('descripcion', `error: ${response.errors[0]}`);
+      user.set('descripcion', `error: ${response.resultado.errors[0]}`);
     } catch (error2) {
       user.set('descripcion', `error: ${JSON.stringify(response)}`);     
     }

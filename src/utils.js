@@ -49,7 +49,9 @@ isProduction: () => {
 warrantyURL: () => {
   if ( utils.isProduction() ) {
     bmconsole.log("warrantyURL => produccion");
-    return 'https://service01.cat-technologies.com:4484/api';
+    //return 'https://service01.cat-technologies.com:4484/api';
+    return 'http://190.104.197.146:5000';
+
   } else {
     bmconsole.log("warrantyURL => test");
     return 'http://190.104.197.146:5000';
@@ -58,7 +60,8 @@ warrantyURL: () => {
 crmURL: () => { 
   if ( utils.isProduction() ) {
     bmconsole.log("CRM => produccion");
-    return 'https://service01.cat-technologies.com:4484/api';
+    return 'http://190.104.197.146:5000';
+    //return 'https://service01.cat-technologies.com:4484/api';
   } else {
     bmconsole.log("CRM => test");
     return 'http://190.104.197.146:5000';
@@ -66,7 +69,7 @@ crmURL: () => {
 },
 checkOutOfService: () => {
   if ( utils.isProduction() ) {
-    throw new Error("Fuera de servicio");  
+    //throw new Error("Fuera de servicio");  
   } else {
     ;
   }
