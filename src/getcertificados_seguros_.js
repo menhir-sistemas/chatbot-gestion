@@ -50,7 +50,7 @@ const main = async () => {
     let certificados = [];
     for (let i = 0; i < response["value"].length; i++) {
       let estado = es_vigente(response["value"][i].bfs_estado);
-      if (estado && (!response["value"][i].bfs_certificado.includes('-'))) {
+      if (estado) {//&& (!response["value"][i].bfs_certificado.includes('-'))) {
         certificados.push(response["value"][i]);
       }
     }
