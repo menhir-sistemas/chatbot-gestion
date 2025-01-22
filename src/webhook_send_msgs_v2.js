@@ -121,7 +121,7 @@ const main = async () => {
   };
   const options = {
     method: "POST",
-    uri: "https://s2.pyzen.com/NeoWebhook/api/Botmaker/IncomeV2",
+    uri: "https://s2.neotel.us/NeoWebhookTest/api/Botmaker/IncomeV2",
     body: payload,
     json: true,
   };
