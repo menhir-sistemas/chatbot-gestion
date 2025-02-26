@@ -1,5 +1,13 @@
 const IS_TEST = user.get("botmakerEnvironment") === "DEVELOPMENT";
+const botmakerToken = "eyJhbGciOiJIUzUxMiJ9.eyJidXNpbmVzc0lkIjoiZ2VzdGlvbiIsIm5hbWUiOiJHZXN0aW9uIiwiYXBpIjp0cnVlLCJpZCI6IlNhc2k3M2hqWGFnVmhRZ09yd2QxTW5oOEFnWjIiLCJleHAiOjE4ODE4NTI4OTQsImp0aSI6IlNhc2k3M2hqWGFnVmhRZ09yd2QxTW5oOEFnWjIifQ.4QgGGWc1wColZGuXcV2kzARzChUKo251aFhzEx_suSmdwiGwfITr3RBkcnaR2OHqKS6-kqUriWKSI9flXdiWrg";
 const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+const getChannelId = () => {
+  if (context.userData.CHAT_CHANNEL_ID.includes("whatsapp"))
+    return context.userData.CHAT_CHANNEL_ID;
+  else
+    return "gestion-whatsapp-5491128738960";//;
+};
 
 const getName = () => {
   if (context.userData.FIRST_NAME) {
@@ -15,44 +23,94 @@ const getName = () => {
   }
 };
 
+const saveChat = async () => {
+  const chatChannel = getChannelId();//context.userData.CHAT_CHANNEL_ID;
+  const chatPlatform = context.userData.CHAT_PLATFORM_ID.toUpperCase();
 
-const createBody = async () => {
+  const channelId = chatChannel.slice("-")[2];
+  const chatId = context.message.CUSTOMER_ID;
 
-  const msj = context.params.codDocumento ?? '-=[Error: mensaje vacío]=-';
+  const options = {
+    method: "GET",
+    uri: "https://api.botmaker.com/v2.0/messages",
+    qs: {
+      "channel-id": channelId,
+      "chat-id": chatId,
+      "chat-platform": chatPlatform,
+      "from": moment(context.message.SESSION_CREATION_TIME).utc().toISOString(),
+      "to": moment.utc().toISOString(),
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "access-token": botmakerToken,
+    },
+    json: true,
+  };
+
+  return rp(options);
+};
+
+const createBody = async (msgId) => {
+  const response = await saveChat();
   bmconsole.log(response)
   const messages = response.items;
-  const date = moment(messages[i].creationTime)
-    .utc()
-    .utcOffset(-5)
-    .format("DD/MM/YYYY HH:mm");
-  const template = messages[i].content.whatsAppTemplateName;
-  let json = {
-    date: date,
-    fromName: messages[i].from == "user" ? getName() : messages[i].from,
-    //_id_: messages[i].id,
-    //from: messages[i].from,
-    message: msj,
-    file: undefined,
-    /*
-    file:
-      messages[i].content.type !== "text" &&
-      messages[i].content.type !== "buttons" &&
-      messages[i].content.type !== "button-click"
-        ? messages[i].content.media && messages[i].content.media.url
-        : undefined,*/
-    operatorId: context.userData.CURRENT_OPERATOR_EMAIL,
-    fromCustomer: true,//messages[i].from == "user" ? true : false,
-    //whatsappReferral: context.message.FROM,
-    //whatsappReferral: {},
-  };
-  return [json];
+  let json;
+  let lista = [];
+  for (let i = 0; i < messages.length; i++) {
+    const msj = messages[i].content.text || messages[i].content.selectedButton;
+    const date = moment(messages[i].creationTime)
+      .utc()
+      .utcOffset(-5)
+      .format("DD/MM/YYYY HH:mm");
+    const template = messages[i].content.whatsAppTemplateName;
+    json = {
+      date: messages[i].creationTime, //date,
+      fromName:
+        messages[i].from == "user" ? getName() : messages[i].from,
+      _id_: messages[i].id,
+      from: messages[i].from,
+      message: template ? template + msj : msj,
+      file:
+        messages[i].content.type !== "text" &&
+          messages[i].content.type !== "buttons" &&
+          messages[i].content.type !== "button-click"
+          ? messages[i].content.media && messages[i].content.media.url
+          : undefined,
+      operatorId:
+        messages[i].from == "operator"
+          ? context.userData.CURRENT_OPERATOR_EMAIL
+          : undefined,
+      fromCustomer: messages[i].from == "user" ? true : false,
+      //whatsappReferral: context.message.FROM,
+      //whatsappReferral: {},
+    };
+    lista.push(json);
+  }
+  //agregamos como ultimo mensaje el id de la sesion
+  lista.push({ ...lista[lista.length - 1] }); // copiamos el ultimo elemento
+  lista[lista.length - 1].message = `${msgId}:` + context.userData._id_ + "_" + context.message.SESSION_CREATION_TIME;// le ponemos de texto el id de la sesion
+  lista[lista.length - 1].fromCustomer = true;
+  lista[lista.length - 1].from = 'user';
+  lista[lista.length - 1].date = new Date();
+  lista[lista.length - 1]._id_ = lista[lista.length - 1]._id_ + 1;
+  //result.text(JSON.stringify( lista[lista.length-1]))
+  return lista;
 };
 
 // Main Block
 const main = async () => {
   //result.text(context.userData._id_ + "_" + context.message.SESSION_CREATION_TIME)
-  const mensajes = await createBody();
-  let number = context.userData.CHAT_CHANNEL_ID;
+
+  let x = getChannelId();
+
+  if (context.params.msgId != null && (context.params.msgId ?? '') != '')
+    msgId = context.params.msgId;
+  else
+    msgId = '--';
+
+  const mensajes = await createBody(msgId);
+
+  let number = getChannelId();//context.userData.CHAT_CHANNEL_ID;
   try {
     // TODO: solo para WA
     let parts = number.split('-');
@@ -75,7 +133,7 @@ const main = async () => {
     sessionId: context.userData._id_ + "_" + context.message.SESSION_CREATION_TIME,
     customerId: context.message.CUSTOMER_ID,
     messages: mensajes,
-    chatChannerlId: context.userData.CHAT_CHANNEL_ID,
+    chatChannerlId: getChannelId(),//context.userData.CHAT_CHANNEL_ID,
   };
   const options = {
     method: "POST",
