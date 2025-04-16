@@ -30,6 +30,7 @@ const main = async () => {
 
     uri = resp.nextPage;
     if (uri == null ) {
+      let x = result.find ((el) => el.taskId == 'gestion-cM0WHz12vi96rvo@b.m-1719336713107');
       return result;
     }
 
