@@ -38,7 +38,7 @@ const main = async () => {
     bmconsole.log(user.get('documento'))
     const response = await callServiceApiRest();
 
-    if (typeof response.data === 'string') {
+    if (typeof response.data === 'string' || (Array.isArray(response.data) && response.data.length === 0)) {
         context.userData.variables.es_contacto = false;
 
     } else {
@@ -56,8 +56,6 @@ const main = async () => {
         }
         user.set('nombre', nombre_ok)
         user.set('apellido', apellido_ok)
-        bmconsole.log(user.get('nombre'))
-        bmconsole.log(user.get('apellido'))
     }
 };
 
