@@ -37,12 +37,15 @@ const main = async () => {
     utils.checkOutOfService();
     bmconsole.log(user.get('documento'))
     const response = await callServiceApiRest();
+    user.set('ya_es_contacto','NO');
+    context.userData.variables.es_contacto = false;
 
     if (typeof response.data === 'string' || (Array.isArray(response.data) && response.data.length === 0)) {
         context.userData.variables.es_contacto = false;
-
+        user.set('ya_es_contacto','NO');
     } else {
         context.userData.variables.es_contacto = true;
+        user.set('ya_es_contacto','SI');
         let nombre_ok = '', apellido_ok = '';
         //buscamos el nombre, tiene que ser distinto de "" y el string "no informado"
         for (let c = 0; c < response.data.length; c++) {
@@ -57,14 +60,17 @@ const main = async () => {
         user.set('nombre', nombre_ok)
         user.set('apellido', apellido_ok)
     }
+    bmconsole.log(context.userData.variables.es_contacto);
 };
 
 main()
     .catch((err) => {
         // Code on error
         const errorMessage = `[Integration with api rest] :   ${err.message}`;
+        context.userData.variables.es_contacto = false;
         bmconsole.log(errorMessage);
         bmconsole.log(context.userData.variables.documento);
+        user.set('ya_es_contacto','NO');
         user.set('CA_name', 'identificarUsuario')
         //user.set('descripcion',`error: ${err.message}\n ${JSON.stringify(response)}`)
         result.gotoRule('asignar a agente');

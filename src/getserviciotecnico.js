@@ -44,7 +44,7 @@ const main = async () => {
     utils.checkOutOfService();
 
     const response = await callServiceApiRest();
-    if (response.data && Array.isArray(response.data.ServicioTecnico)) {
+    if (response.data && Array.isArray(response.data.ServicioTecnico) && response.data.ServicioTecnico.length> 0) {
         let buttons = result.buttonsBuilder().text('Selecciona un servicio técnico:');
 
         for (let i = 0; i < response.data.ServicioTecnico.length; i++) {
@@ -57,7 +57,7 @@ const main = async () => {
         user.set('servicios', JSON.stringify(response.data.ServicioTecnico));
     }
     else {
-        if (response.data && typeof response.data === 'object') {
+        /*if (response.data && typeof response.data === 'object') {
             let ss_tecnico = `Los datos asociados al servicio técnico son los siguientes:
             Nombre: ${response.data.ServicioTecnico.nombreDeServicioTecnico}
             Dirección:${response.data.ServicioTecnico.direccion}
@@ -69,7 +69,7 @@ const main = async () => {
             user.set('datos_sstecnico', ss_tecnico);
             result.gotoRule('st asignado');
         }
-        else {
+        else */{
             result.gotoRule('pendiente asignacion');
         }
     }

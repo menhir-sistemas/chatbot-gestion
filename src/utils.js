@@ -40,7 +40,6 @@ isProduction: () => {
   try {
     const PRODUCTION_NUMBER = "5491128738960"; 
     let number = context.userData.CHAT_CHANNEL_ID;
-    bmconsole.log("number => " + number);
     return number.includes(PRODUCTION_NUMBER) || number.includes("webchat") ;
       // TODO: solo para WA
   } catch (error) {
