@@ -126,6 +126,9 @@ const main = async () => {
     json: true,
   };
   const res = await rp(options);
+  if ( res === undefined ) {
+      bmconsole.error("[undefined res! -> payload] " + JSON.stringify(payload));  
+  }
   bmconsole.log("[STATUS] " + JSON.stringify(res));
 };
 
