@@ -4,12 +4,11 @@ const TZ = "America/Argentina/Buenos_Aires";
 async function checkDate() {
   var mm;
   try {
-    mm = momentTimeZone().tz(TZ);
+    mm = momentTimezone().tz(TZ);
   } catch (error) {
     mm = moment();
   }
   let ahora = mm;
-  bmconsole.log(ahora.hour());   
   // Chequeo si es feriado
   let feriado = await utils.isFeriado(ahora);
   if (feriado) {
