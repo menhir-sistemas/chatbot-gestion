@@ -3,10 +3,13 @@
  */
 feriadosAdicionales: () =>{
   return [
+    {fecha: '2024-11-24', tipo: 'custom', nombre: 'Día de la tradición'},
+    {fecha: '2024-11-21', tipo: 'custom', nombre: 'Día de la tradición'},
     {fecha: '2024-10-21', tipo: 'custom', nombre: 'Día del seguro 2024'},
     {fecha: '2024-12-24', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
     {fecha: '2024-12-31', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
     {fecha: '2025-04-17', tipo: 'custom', nombre: 'Jueves Santo'},
+    //{fecha: '2025-10-27', tipo: 'custom', nombre: 'Día del seguro'},
   ];
 },
 /**
