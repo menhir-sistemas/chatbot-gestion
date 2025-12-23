@@ -9,7 +9,8 @@ feriadosAdicionales: () =>{
     {fecha: '2024-12-24', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
     {fecha: '2024-12-31', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
     {fecha: '2025-04-17', tipo: 'custom', nombre: 'Jueves Santo'},
-    //{fecha: '2025-10-27', tipo: 'custom', nombre: 'Día del seguro'},
+    {fecha: '2025-12-24', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
+    {fecha: '2025-12-31', tipo: 'custom', nombre: 'las celebraciones de las fiestas'},
   ];
 },
 /**
